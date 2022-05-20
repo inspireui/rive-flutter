@@ -28,6 +28,8 @@ typedef OnStateChange = void Function(String, String);
 /// Callback signature for layer state changes
 typedef OnLayerStateChange = void Function(LayerState);
 
+T? _ambiguate<T>(T? value) => value;
+
 class LayerController {
   final StateMachineLayer layer;
   final StateInstance anyStateInstance;
@@ -226,7 +228,7 @@ class StateMachineController extends RiveAnimationController<CoreContext> {
 
   /// Handles state change callbacks
   void _onStateChange(LayerState layerState) =>
-      SchedulerBinding.instance.addPostFrameCallback((_) {
+      _ambiguate(SchedulerBinding.instance)!.addPostFrameCallback((_) {
         String stateName = 'unknown';
         if (layerState is AnimationState && layerState.animation != null) {
           stateName = layerState.animation!.name;

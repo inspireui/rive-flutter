@@ -7,6 +7,8 @@ import 'package:rive/src/rive_core/math/aabb.dart';
 import 'package:rive/src/rive_core/math/mat2d.dart';
 import 'package:rive/src/rive_core/math/vec2d.dart';
 
+T? _ambiguate<T>(T? value) => value;
+
 abstract class RiveRenderBox extends RenderBox {
   final Stopwatch _stopwatch = Stopwatch();
   BoxFit _fit = BoxFit.none;
@@ -187,7 +189,7 @@ abstract class RiveRenderBox extends RenderBox {
       return;
     }
     _frameCallbackId =
-        SchedulerBinding.instance.scheduleFrameCallback(_frameCallback) ?? -1;
+        _ambiguate(SchedulerBinding.instance)!.scheduleFrameCallback(_frameCallback) ?? -1;
   }
 
   /// Override this if you want to do custom viewTransform alignment. This will
